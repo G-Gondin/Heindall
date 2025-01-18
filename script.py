@@ -32,7 +32,7 @@ def verify_id(arq, id):
     
     n1 = open(arq, "rt")
     for c in n1:
-        lis = c.split()
+        lis = c.split(",")
         if lis[2] == id:
             n1.close()
             return True
@@ -58,8 +58,7 @@ def cadastra_users(arq, name, upass, id="cria", permis="nao"):
     else:
         try:
             a = open(arq, "at")
-            a.write(f"{name} {upass} {id} {permis}")
-            a.write("\n")
+            a.write(f"{name},{upass},{id},{permis}")
             a.close()
         except:
             return "Houve um erro inesperado"
@@ -69,9 +68,9 @@ def cadastra_users(arq, name, upass, id="cria", permis="nao"):
 def verify_uidin(id):
     """Verifica se determinado ID já está presente no arquivo local"""
     
-    n1 = open("usersh.txt", "rt")
+    n1 = open("usersh.csv", "rt")
     for c in n1:
-        lis = c.split()
+        lis = c.split(",")
         if lis[2] == id:
             n1.close()
             return True
@@ -82,9 +81,9 @@ def verify_uidin(id):
 def verify_unamein(name):
     """Verifica se determinado nome já está presente no arquivo local"""
     
-    n1 = open("usersh.txt", "rt")
+    n1 = open("usersh.csv", "rt")
     for c in n1:
-        lis = c.split()
+        lis = c.split(",")
         if lis[0] == name:
             n1.close()
             return True
@@ -139,10 +138,10 @@ def verify_pass(upass):
 def verify_loguser(user):
     """verifica ou encontra um usuario que está ou não presente na lista"""
     
-    a = open("usersh.txt", "rt")
+    a = open("usersh.csv", "rt")
     clients = []
     for c in a:
-        clients.append(c.split())
+        clients.append(c.split(","))
         if clients[0][0] == user:
             return True
         else:
@@ -184,8 +183,7 @@ def cadastro_prod(arq, cod, name, preco=0):
     try:
         data = date.today()
         a = open(arq, "at")
-        a.write(f"{cod} {name} {preco} {data}")
-        a.write("\n")
+        a.write(f"{cod},{name},{preco},{data}")
         a.close()
     except:
         return "Houve um erro inesperado"
@@ -199,7 +197,7 @@ def lercadat_prod(arq):
     a = open(arq, "rt")
     linha1()
     for c in a:
-        dado = c.split()
+        dado = c.split(",")
         print(f"{f"{dado[0]} {dado[1]}":<25}\t {f"R$ {dado[2]} Data: {dado[3]}":>2}")
     linha1()
     a.close()
@@ -207,7 +205,7 @@ def lercadat_prod(arq):
 def verify_pcodin(arq, ver):
     n1 = open(arq, "rt")
     for c in n1:
-        lis = c.split()
+        lis = c.split(",")
         if lis[0] == ver:
             n1.close()
             return True
@@ -218,7 +216,7 @@ def verify_pcodin(arq, ver):
 def verify_pnamein(arq, ver):
     n1 = open(arq, "rt")
     for c in n1:
-        lis = c.split()
+        lis = c.split(",")
         if lis[1] == ver:
             n1.close()
             return True
@@ -233,7 +231,7 @@ def alt_val_prod(arq, cod):
         a = open(arq, "rt")
         produtos = []
         for c in a:
-            produtos.append(c.split())
+            produtos.append(c.split(","))
         a.close()
         lis = []
         for c in range(0, len(produtos)):
@@ -300,7 +298,7 @@ def lercadat_users(arq):
     a = open(arq, "rt")
     linha1()
     for c in a:
-        dado = c.split()
+        dado = c.split(",")
         print(f"""
 user name: {dado[0]} | senha: {dado[1]} | id: {dado[2]} | permissão de alteração: {dado[3]}
 """)
@@ -310,9 +308,9 @@ user name: {dado[0]} | senha: {dado[1]} | id: {dado[2]} | permissão de alteraç
 def coletainfo_uid(id):
     """retorna todas as informações cadastrais de determinado usuario"""
 
-    a = open("usersh.txt", "rt")
+    a = open("usersh.csv", "rt")
     for c in a:
-        dado = c.split()
+        dado = c.split(",")
         if dado[2] == id:
             return dado
     else:
@@ -322,9 +320,9 @@ def coletainfo_uid(id):
 def coletainfo_un(name):
     """retorna todas as informações cadastrais de determinado usuario"""
 
-    a = open("usersh.txt", "rt")
+    a = open("usersh.csv", "rt")
     for c in a:
-        dado = c.split()
+        dado = c.split(",")
         if dado[0] == name:
             return dado
     else:
@@ -349,7 +347,7 @@ def alt_cad_user(arq, cod):
     a = open(arq, "rt")
     tusuarios = []
     for c in a:
-        tusuarios.append(c.split())
+        tusuarios.append(c.split(","))
     a.close()
 
 
@@ -422,7 +420,7 @@ Qual dado você quer alterar? """)).strip()
         tusuarios.append(lis)        
         a = open(arq, "wt")
         for c in range(0, len(tusuarios)):
-            cadastra_users("usersh.txt", tusuarios[c][0], tusuarios[c][1], tusuarios[c][2], tusuarios[c][3])
+            cadastra_users("usersh.csv", tusuarios[c][0], tusuarios[c][1], tusuarios[c][2], tusuarios[c][3])
         return "Alteração realizada com sucesso."
     #remover
     if choice == "r":
@@ -437,7 +435,7 @@ def valida_codi(codi):
         return False
     elif len(codi) != 12:
         return False
-    elif verify_pcodin("produtos.txt", codi) == True:
+    elif verify_pcodin("produtos.csv", codi) == True:
         print("Código já utilizado")
         return False
     else:

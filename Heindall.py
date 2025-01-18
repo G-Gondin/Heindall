@@ -1,6 +1,6 @@
 import script, os, time
-if script.arqexiste("usersh.txt") == False:
-    script.criararq("usersh.txt")
+if script.arqexiste("usersh.csv") == False:
+    script.criararq("usersh.tcsv")
 
 while True:
     print("""[1] Entrar
@@ -77,7 +77,7 @@ while True:
                 continue
             else:
                 break
-        script.cadastro("usersh.txt", user_name, user_pass)
+        script.cadastro("usersh.csv", user_name, user_pass)
         time.sleep(1.5)
         os.system("cls")
 

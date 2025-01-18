@@ -1,10 +1,10 @@
 import os, time, script
 from script import limpa
-if script.arqexiste("usersh.txt") == False:
-    script.criararq("usersh.txt")
+if script.arqexiste("usersh.csv") == False:
+    script.criararq("usersh.csv")
 
-if script.arqexiste("produtos.txt") == False:
-    script.criararq("produtos.txt")
+if script.arqexiste("produtos.csv") == False:
+    script.criararq("produtos.csv")
 
 sys = """[1] Produtos
 [2] Usuarios
@@ -86,20 +86,20 @@ while True:
                         except:
                             continue
                         else:
-                            print(script.cadastro_prod("produtos.txt", codi, nome, price))
+                            print(script.cadastro_prod("produtos.csv", codi, nome, price))
                             break
                 if pr == "n":
-                    print(script.cadastro_prod("produtos.txt", codi, nome))
+                    print(script.cadastro_prod("produtos.csv", codi, nome))
             if choice1 == "2":
                 limpa()
-                script.lercadat_prod("produtos.txt")
+                script.lercadat_prod("produtos.csv")
                 edit = str(input("Deseja editar algum produto? [S/N]")).strip().upper()
                 if edit not in "SN" or edit == "" or len(edit) > 1:
                     while edit not in "SN" or edit == "" or len(edit) > 1:
                         edit = str(input("Erro! Digite novamente: ")).strip().upper()
                 if edit == "S":
                     op = str(input("Digite o código do produto que você quer editar: "))
-                    script.alt_val_prod("produtos.txt", op)
+                    script.alt_val_prod("produtos.csv", op)
             if choice1 == "3":
                 break
             limpa()
@@ -136,7 +136,7 @@ O que você quer alterar? """)).strip()
                             if logu == "t":
                                 continue
                         else:
-                            script.alt_cad_user("usersh.txt", find_log)
+                            script.alt_cad_user("usersh.csv", find_log)
                             break
             if ch2 == "3":
                 while True:
@@ -157,9 +157,9 @@ O que você quer alterar? """)).strip()
                         continue
                     else:
                         break
-                script.cadastra_users("usersh.txt", user_name, user_pass)
+                script.cadastra_users("usersh.csv", user_name, user_pass)
             if ch2 == "4":
-                script.lercadat_users("usersh.txt")
+                script.lercadat_users("usersh.csv")
                 n1 = input("Pressione Enter para sair ")
             if ch2 == "5":
                 break
