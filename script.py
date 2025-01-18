@@ -446,3 +446,4 @@ def valida_codi(codi):
             if l[c] not in "0123456789":
                 return False
     return True
+
