@@ -184,6 +184,7 @@ def cadastro_prod(arq, cod, name, preco=0):
         data = date.today()
         a = open(arq, "at")
         a.write(f"{cod},{name},{preco},{data}")
+        a.write("\n")
         a.close()
     except:
         return "Houve um erro inesperado"
