@@ -59,7 +59,7 @@ class LoginApp:
         janela_login.geometry("252x125")
         janela_login.title("Heimdall")
         janela_login.resizable(False, False)  # Impede redimensionamento da janela
-        janela_login.iconbitmap("grego.ico")
+        janela_login.iconbitmap("Imagens\grego.ico")
 
         # Label do campo de usuário
         label_usuario = ctk.CTkLabel(janela_login, text="Login: ")
@@ -85,6 +85,9 @@ class LoginApp:
         botao_login = ctk.CTkButton(janela_login, text="Login", fg_color="blue", command=verificar_login, width=90)
         botao_login.place(x=5, y=85)
 
+        # Adicionando a funcionalidade para o Enter
+        janela_login.bind('<Return>', lambda event: verificar_login())  # Associa a tecla Enter à função
+
         # Iniciar a janela de login
         janela_login.mainloop()
 
@@ -103,10 +106,26 @@ if not login_app.login_sucesso:
 janela_principal = ctk.CTk()
 janela_principal.geometry("600x450")
 janela_principal.title("Heimdall")
-janela_principal.iconbitmap("grego.ico")
+janela_principal.iconbitmap("Imagens\grego.ico")
 ctk.set_appearance_mode("Light")
 
-label_bemvindo = ctk.CTkLabel(janela_principal, text="Bem-vindo(a) à Janela Principal!", font=("Arial", 16))
-label_bemvindo.pack(pady=20)
+# Criar um frame que ocupa toda a janela
+frame_fundo = ctk.CTkFrame(
+    janela_principal,
+    width=600,
+    height=450,
+    fg_color="#f7f7f7",  # Cor de fundo da janela (hexadecimal)
+)
+frame_fundo.pack(fill="both", expand=True)  # Preencher a janela com o frame
+
+# Adicionar a barra vertical
+barra_vertical = ctk.CTkFrame(
+    janela_principal,
+    width=35,  # Largura da barra
+    height=450,  # Altura da barra
+    fg_color="#dedede",  # Cor da barra (hexadecimal)
+    corner_radius=0, # Barra quadrada
+)
+barra_vertical.place(x=0, y=0)  # Posiciona no canto superior esquerdo da janela
 
 janela_principal.mainloop()
